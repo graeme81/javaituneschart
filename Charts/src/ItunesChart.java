@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Button;
 
 public class ItunesChart {
 
@@ -32,9 +33,7 @@ public class ItunesChart {
 			songs = now.getSong();
 			artists = now.getArtist();
 			date = now.getDate();
-			//Desktop d = Desktop.getDesktop();
 			
-			System.out.println(date);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,19 +64,19 @@ public class ItunesChart {
 		shell.setText("I-Music Chart");
 		
 		Label lblTitle = new Label(shell, SWT.NONE);
-		lblTitle.setFont(SWTResourceManager.getFont("Times New Roman", 14, SWT.NORMAL));
+		lblTitle.setFont(SWTResourceManager.getFont("Gadugi", 16, SWT.BOLD));
 		lblTitle.setAlignment(SWT.CENTER);
 		lblTitle.setBounds(10, 10, 564, 30);
-		lblTitle.setText("I-Charts For Day " + date );
+		lblTitle.setText("I-Charts For Day: 15/03/2019" );
 		
 		ListViewer listViewer = new ListViewer(shell, SWT.BORDER | SWT.V_SCROLL);
 		org.eclipse.swt.widgets.List list = listViewer.getList();
 		list.setBounds(10, 53, 278, 298);
 		
 		Label lblOut = new Label(shell, SWT.SHADOW_IN | SWT.CENTER);
-		lblOut.setFont(SWTResourceManager.getFont("Corbel", 10, SWT.NORMAL));
-		lblOut.setBounds(312, 98, 201, 124);
-		lblOut.setText("Label here");
+		lblOut.setFont(SWTResourceManager.getFont("Eras Demi ITC", 11, SWT.NORMAL));
+		lblOut.setBounds(328, 98, 185, 124);
+		//lblOut.setText("Label here");
 		
 		
 		Combo combo = new Combo(shell, SWT.NONE);
@@ -85,9 +84,12 @@ public class ItunesChart {
 		combo.addSelectionListener(new SelectionAdapter(){
 			public void widgetDefaultSelected(SelectionEvent e) {
 				int x = songs.indexOf(combo.getText());
-				String find = artists.get(x)+ " "+songs.get(x) ;
-				String click = "http://www.youtube.com/results?search_query="+find;
-		        lblOut.setText(click);
+				String selected = songs.get(x) + " by " + artists.get(x);
+				lblOut.setText(selected);
+				
+//				String find = artists.get(x)+ " "+songs.get(x) ;
+//				String click = "http://www.youtube.com/results?search_query="+find;
+//		        lblOut.setText(click);
 		        
 		      }
 		});
@@ -102,6 +104,17 @@ public class ItunesChart {
 			list.add(in);
 			combo.add(songs.get(i));
 		}
+		
+		Button btnPlay = new Button(shell, SWT.NONE);
+		btnPlay.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				System.out.println("button pressed!");
+			}
+		});
+		btnPlay.setFont(SWTResourceManager.getFont("Constantia", 14, SWT.BOLD | SWT.ITALIC));
+		btnPlay.setBounds(328, 241, 185, 57);
+		btnPlay.setText("Find Song");
 		
 	}
 }
